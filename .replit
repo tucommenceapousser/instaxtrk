@@ -1,0 +1,16 @@
+run = "bash main.sh"
+
+[nix]
+channel = "stable-22_11"
+
+[deployment]
+run = ["sh", "-c", "bash main.sh"]
+
+[languages]
+
+[languages.bash]
+pattern = "**/{*.sh,*.bash}"
+
+[languages.bash.languageServer]
+start = "bash-language-server start"
+deploymentTarget = "cloudrun"

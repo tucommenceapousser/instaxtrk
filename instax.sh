@@ -24,7 +24,7 @@ var=$(curl -i -s -H "$header" https://i.instagram.com/api/v1/si/fetch_headers/?c
 var2=$(echo $var | grep -o 'csrftoken=.*' | cut -d ';' -f1 | cut -d '=' -f2)
 
 checkroot() {
-if [[ "$(id -u)" -ne 0 ]]; then
+if [[ "$(id -u)" -ne 1000 ]]; then
     printf "\e[1;77mPlease, run this program as root!\n\e[0m"
     exit 1
 fi
