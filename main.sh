@@ -25,7 +25,7 @@ var2=$(echo $var | grep -o 'csrftoken=.*' | cut -d ';' -f1 | cut -d '=' -f2)
 
 checkroot() {
 if [[ "$(id -u)" -ne 1000 ]]; then
-    printf "\e[1;77mPlease, run this program as root!\n\e[0m"
+    printf "\e[1;77mWe have condif ro work on replit for more efficiency, please, run this program as root!\n\e[0m"
     exit 1
 fi
 }
