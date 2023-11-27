@@ -57,7 +57,8 @@ banner() {
   printf "${GREEN}) )|| |   _ \\  /___)(_   _)(____ |  \n"
   printf "${BLUE}(_/ | || | | ||___ |  | |_ / ___ |  \n"
   printf "${PURPLE}    |_||_| |_|(___/    \\__)\\_____|  \n\n"
-  printf "${CYAN}  Instagram Brute Force Tool by @trhacknon(IG)   ${NC}\n\n"
+  printf "${BLUE}  Instagram Brute Force Tool by ${YELLOW} @trhacknon(IG)   ${NC}\n\n"
+  printf "${PURPLE}  from tools of ${YELLOW} @dhasirar(IG)   ${NC}\n\n"
 }
 
 function start() {
