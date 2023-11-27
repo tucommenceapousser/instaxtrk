@@ -37,5 +37,10 @@ chmod +x install.sh
 bash install.sh
 ```
 
+## wordlists
+10m.txt = 10 millions passwords wordlist 
+
+passwords.lst = 39400 passwords wordlist
+
 ### How it works?
 Tool uses TOR and rotating the ip address to avoid blocking. 
