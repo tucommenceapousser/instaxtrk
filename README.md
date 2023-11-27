@@ -10,7 +10,7 @@ Usage of Instax for attacking targets without prior mutual consent is illegal. I
 
 ## Proof:
 ![insta](https://user-images.githubusercontent.com/50268203/81773518-694f8800-94b6-11ea-859d-9c2362d71dd4.gif)
-![insta](screen.jpg)
+![insta](screenn.jpg)
 ### Features
 - Multi-thread (400 pass/min, 20 threads)
 - Save/Resume sessions
